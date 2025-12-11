@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Alba & Grano · Menú</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    :root {
+      --bg: #0f1012;
+      --bg-soft: #18191d;
+      --fg: #f4f4f4;
+      --muted: #9a9ca3;
+      --accent: #c89b63;
+      --accent-soft: rgba(200,155,99,0.18);
+      --border-soft: #25262b;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Inter", sans-serif;
+      background: radial-gradient(circle at top, #21232a 0, #0b0c0f 55%, #050506 100%);
+      color: var(--fg);
+      -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      padding: 16px;
+    }
+
+    .shell {
+      max-width: 960px;
+      margin: 0 auto;
+      border-radius: 20px;
+      background: radial-gradient(circle at top left, #262833 0, #121318 55%, #0c0d11 100%);
+      border: 1px solid rgba(255,255,255,0.04);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .shell::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      opacity: 0.15;
+      background:
+        linear-gradient(120deg, #25252b 1px, transparent 1px) 0 0 / 26px 26px,
+        radial-gradient(circle at top right, rgba(200,155,99,0.3), transparent 55%);
+      pointer-events: none;
+    }
+
+    .inner {
+      position: relative;
+      z-index: 1;
+      padding: 18px 16px 22px;
+    }
+
+    @media (min-width: 720px) {
+      body {
+        padding: 32px;
+      }
+      .inner {
+        padding: 24px 26px 26px;
+      }
+    }
+
+    /* HEADER */
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 18px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 30% 10%, #f7f0e9 0, #d7b089 32%, #895934 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #111;
+      font-weight: 600;
+      letter-spacing: 1px;
+      font-size: 0.9rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+    }
+
+    .title-block h1 {
+      font-size: 1.55rem;
+      letter-spacing: 0.18em;
+      font-weight: 500;
+    }
+
+    .title-block p {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .pill {
+      margin-left: auto;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      backdrop-filter: blur(10px);
+      background: rgba(15,16,20,0.7);
+    }
+
+    .pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #20c997;
+    }
+
+    /* intro */
+
+    .intro {
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .intro strong {
+      color: var(--fg);
+      font-weight: 500;
+    }
+
+    .tag-small {
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 0.72rem;
+      border: 1px solid var(--border-soft);
+      background: rgba(24,25,30,0.9);
+    }
+
+    /* category chips */
+
+    .chips {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 6px 0 12px;
+      scrollbar-width: none;
+    }
+
+    .chips::-webkit-scrollbar { display: none; }
+
+    .chip {
+      border-radius: 999px;
+      padding: 7px 14px;
+      border: 1px solid var(--border-soft);
+      background: rgba(18,19,24,0.9);
+      font-size: 0.78rem;
+      color: var(--muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.16s ease, color 0.16s ease, border-color 0.16s ease;
+    }
+
+    .chip.is-active {
+      background: var(--accent-soft);
+      color: var(--fg);
+      border-color: rgba(200,155,99,0.9);
+    }
+
+    .chip:hover {
+      border-color: rgba(200,155,99,0.7);
+    }
+
+    /* sections */
+
+    .section {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-soft);
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 18px;
+      align-items: flex-start;
+    }
+
+    .section-header {
+      margin-bottom: 10px;
+    }
+
+    .section-label {
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 500;
+    }
+
+    .section-note {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .list {
+      font-size: 0.88rem;
+      border-radius: 14px;
+      background: rgba(15,16,20,0.9);
+      border: 1px solid rgba(255,255,255,0.02);
+      padding: 10px 12px;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 8px;
+      padding: 6px 0;
+      align-items: baseline;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+
+    .row:last-child {
+      border-bottom: none;
+    }
+
+    .item-name {
+      font-weight: 400;
+    }
+
+    .item-desc {
+      font-size: 0.74rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .price {
+      color: #d1d1d1;
+      font-size: 0.86rem;
+    }
+
+    .photo-block {
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      min-height: 180px;
+      background: #1a1b20;
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+
+    .photo-block img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(1.1);
+    }
+
+    .photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.65), transparent 65%);
+    }
+
+    .photo-caption {
+      position: absolute;
+      left: 12px;
+      bottom: 10px;
+      font-size: 0.74rem;
+      color: #f3ebdd;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .photo-caption span {
+      display: block;
+      font-size: 0.7rem;
+      opacity: 0.8;
+    }
+
+    footer {
+      margin-top: 24px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-soft);
+      font-size: 0.7rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    footer strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* responsive */
+
+    @media (max-width: 720px) {
+      .section {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .section:nth-child(odd) .photo-block {
+        order: -1;
+      }
+    }
+
+    @media (min-width: 900px) {
+      .section {
+        gap: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="inner">
+
+      <header>
+        <div class="mark">AG</div>
+        <div class="title-block">
+          <h1>ALBA &amp; GRANO</h1>
+          <p>Menú de café · Escaneado desde código QR</p>
+        </div>
+        <div class="pill">
+          <span class="pill-dot"></span>
+          <span>Optimizado para móvil</span>
+        </div>
+      </header>
+
+      <section class="intro">
+        <p><strong>Bienvenido.</strong> Desliza o toca una categoría para explorar el menú.</p>
+        <span class="tag-small">Cafetería ficticia · Demo UI</span>
+      </section>
+
+      <!-- chips -->
+      <nav class="chips">
+        <button class="chip is-active" data-target="#hot">Hot</button>
+        <button class="chip" data-target="#cold">Cold</button>
+        <button class="chip" data-target="#signatures">Especialidades</button>
+      </nav>
+
+      <!-- HOT -->
+      <section id="hot" class="section">
+        <div>
+          <div class="section-header">
+            <div class="section-label">Sección</div>
+            <div class="section-title">Hot coffee</div>
+            <p class="section-note">Clásicos calientes preparados con espresso de la casa.</p>
+          </div>
+          <div class="list">
+            <div class="row">
+              <div>
+                <div class="item-name">Flat white</div>
+                <p class="item-desc">Doble espresso y leche sedosa, servido en taza pequeña.</p>
+              </div>
+              <div class="price">$45</div>
+            </div>
+            <div class="row">
+              <div>
+                <div class="item-name">Café latte</div>
+                <p class="item-desc">Suave y cremoso; el equilibrio clásico para cualquier momento.</p>
+              </div>
+              <div class="price">$45</div>
+            </div>
+            <div class="row">
+              <div>
+                <div class="item-name">Cappuccino</div>
+                <p class="item-desc">Espresso, leche y espuma en partes iguales.</p>
+              </div>
+              <div class="price">$45</div>
+            </div>
+            <div class="row">
+              <div>
+                <div class="item-name">Mocha</div>
+                <p class="item-desc">Cacao suave con espresso y leche vaporizada.</p>
+              </div>
+              <div class="price">$55</div>
+            </div>
+            <div class="row">
+              <div>
+                <div class="item-name">Americano</div>
+                <p class="item-desc">Espresso extendido con agua caliente.</p>
+              </div>
+              <div class="price">$35</div>
+            </div>
+            <div class="row">
+              <div>
+                <div class="item-name">Espresso</div>
+                <p class="item-desc">Dosis concentrada de café, servida corta.</p>
+              </div>
+              <div class="price">$30</div>
+            </div>
+            <div class="row">
+              <div>
+                <div class="item-name">Chocolate caliente</div>
+                <p class="item-desc">Chocolate 60% cacao con leche vaporizada.</p>
+              </div>
+              <div class="price">$55</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-block">
+          <!-- Cambia estos src por tus fotos -->
+          <img src="https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Hot coffee">
+          <div class="photo-overlay"></div>
+          <div class="photo-caption">Hot menu<span>espresso &amp; milk based</span></div>
+        </div>
+      </section>
+
+      <!-- COLD -->
+      <section id="cold" class="section">
+        <div class="photo-block">
+          <img src="https://images.pexels.com/photos/3184183/pexels-photo-3184183.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Cold coffee">
+          <div class="photo-overlay"></div>
+          <div class="photo-caption">Cold menu<span>iced &amp; brewed</span></div>
+        </div>
+
+        <div>
+          <div class="section-header">
+            <div class="section-label">Sección</div>
+            <div class="section-title">Cold coffee</div>
+            <p class="section-note">Opciones frías para días largos o tardes de verano.</p>
+          </div>
+          <div class="list">
+            <div class="row">
+              <div>
+                <div class="item-name">Cold brew</div>
+                <p class="item-desc">Infusionado en frío durante 16 horas.</p>
+              </div>
+              <div class="price">$60</div>
+            </div>
+            <div class="row">
+              <div>
+                <div class="item-name">Iced latte</div>
+                <p class="item-desc">Espresso, leche fría y hielo.</p>
+              </div>
+              <div class="price">$55</div>
+            </div>
+            <div class="row">
+              <div>
+                <div class="item-name">Oreo ice coffee</div>
+                <p class="item-desc">Café frío con crema ligera y galleta triturada.</p>
+              </div>
+              <div class="price">$65</div>
+            </div>
+            <div class="row">
+              <div>
+                <div class="item-name">Frappuccino</div>
+                <p class="item-desc">Mezcla frappé de café, leche y hielo.</p>
+              </div>
+              <div class="price">$70</div>
+            </div>
+            <div class="row">
+              <div>
+                <div class="item-name">Spanish latte</div>
+                <p class="item-desc">Dulzor ligero con leche condensada.</p>
+              </div>
+              <div class="price">$65</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SIGNATURES -->
+      <section id="signatures" class="section">
+        <div>
+          <div class="section-header">
+            <div class="section-label">Sección</div>
+            <div class="section-title">Signatures</div>
+            <p class="section-note">Bebidas de casa pensadas para probar algo distinto.</p>
+          </div>
+          <div class="list">
+            <div class="row">
+              <div>
+                <div class="item-name">Alba tonic</div>
+                <p class="item-desc">Espresso sobre tónica fría con toque cítrico.</p>
+              </div>
+              <div class="price">$68</div>
+            </div>
+            <div class="row">
+              <div>
+                <div class="item-name">Grano miel</div>
+                <p class="item-desc">Latte con miel de flor de azahar y canela suave.</p>
+              </div>
+              <div class="price">$62</div>
+            </div>
+            <div class="row">
+              <div>
+                <div class="item-name">Midnight mocha</div>
+                <p class="item-desc">Mocha con nota sutil de sal de mar.</p>
+              </div>
+              <div class="price">$70</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="photo-block">
+          <img src="https://images.pexels.com/photos/324028/pexels-photo-324028.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Signature coffee">
+          <div class="photo-overlay"></div>
+          <div class="photo-caption">House specials<span>crafted drinks</span></div>
+        </div>
+      </section>
+
+      <footer>
+        <span>Demo de interfaz · <strong>Alba &amp; Grano</strong></span>
+        <span>Pensado para QR en teléfono, tablet y escritorio.</span>
+      </footer>
+    </div>
+  </main>
+
+  <script>
+    // Navegación por chips
+    const chips = document.querySelectorAll(".chip");
+    chips.forEach(chip => {
+      chip.addEventListener("click", () => {
+        const target = document.querySelector(chip.dataset.target);
+        if (!target) return;
+
+        chips.forEach(c => c.classList.remove("is-active"));
+        chip.classList.add("is-active");
+
+        const rect = target.getBoundingClientRect();
+        const offset = window.scrollY + rect.top - 80;
+        window.scrollTo({ top: offset, behavior: "smooth" });
+      });
+    });
+  </script>
+</body>
+</html>
