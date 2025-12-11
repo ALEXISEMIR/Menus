@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>La Casa Elegante · Menú</title>
+  <meta name="description" content="Menú digital de La Casa Elegante. Entradas, platos fuertes, bebidas y postres.">
+
+  <!-- Google Fonts: una serif para títulos y una sans para texto -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ====== VARIABLES Y BASE ====== */
+    :root {
+      --color-primario: #2c2a40;
+      --color-secundario: #f2ede8;
+      --color-acento: #c99b4f;
+      --color-fondo: #fdfdfc;
+      --color-texto: #15151a;
+      --color-borde: rgba(12, 8, 32, 0.08);
+      --color-badge-recomendado: #c99b4f;
+      --color-badge-nuevo: #2f855a;
+      --color-badge-picante: #c53030;
+
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --shadow-soft: 0 10px 30px rgba(15, 10, 35, 0.08);
+
+      --font-titulo: "Playfair Display", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-texto: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      font-family: var(--font-texto);
+      color: var(--color-texto);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.5;
+
+      /* Fondo base */
+      background-color: var(--color-fondo);
+
+      /* Ruido suave en SVG, repetido para textura ligera */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.16'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-attachment: fixed;
+
+      display: flex;
+      flex-direction: column;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* Más ancho en escritorio/tablet grande */
+    @media (min-width: 1024px) {
+      .container {
+        max-width: 1040px;
+      }
+    }
+
+    /* ====== HEADER / NAV ====== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(12px);
+      background: rgba(245, 243, 239, 0.9);
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .site-header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.8rem 1.5rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #fdf7e9, #c99b4f);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-titulo);
+      font-size: 0.9rem;
+      color: #2c2a40;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .brand-name {
+      font-family: var(--font-titulo);
+      font-size: 1.05rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .brand-tagline {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      opacity: 0.7;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem 0.6rem;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+      align-items: center;
+      white-space: normal;
+      overflow-x: visible;
+      padding-bottom: 0.1rem;
+    }
+
+    .nav-links a {
+      padding: 0.25rem 0.45rem;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      line-height: 1.1;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      background: rgba(44, 42, 64, 0.08);
+      border-color: rgba(44, 42, 64, 0.15);
+      outline: none;
+    }
+
+    .nav-links a.is-active {
+      background: rgba(44, 42, 64, 0.08);
+      border-color: rgba(44, 42, 64, 0.25);
+    }
+
+    /* ====== HERO ====== */
+    .hero {
+      padding: 1.6rem 0 2.2rem;
+      background: radial-gradient(circle at top left, #f9f5eb, #ffffff);
+      border-bottom: 1px solid rgba(0,0,0,0.03);
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.6rem;
+    }
+
+    .hero-main-title {
+      font-family: var(--font-titulo);
+      font-size: 2.1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.7rem;
+    }
+
+    .hero-subtitle {
+      font-size: 0.9rem;
+      letter-spacing: 0.18em;
+      opacity: 0.7;
+      margin-bottom: 1rem;
+    }
+
+    .hero-description {
+      font-size: 0.95rem;
+      margin-bottom: 1.2rem;
+      max-width: 32rem;
+    }
+
+    .hero-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+      max-width: 420px;
+      margin-top: 0.2rem;
+    }
+
+    .card {
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-borde);
+      box-shadow: 0 12px 26px rgba(12, 8, 32, 0.04);
+      background: #ffffff;
+    }
+
+    .meta-card {
+      padding: 0.8rem 0.9rem;
+      background: rgba(255,255,255,0.9);
+      font-size: 0.8rem;
+    }
+
+    .meta-label {
+      font-size: 0.65rem;
+      opacity: 0.7;
+      margin-bottom: 0.25rem;
+    }
+
+    .meta-value {
+      font-weight: 500;
+    }
+
+    .chef-card {
+      padding: 1rem 1.1rem;
+      border-radius: var(--radius-lg);
+      border: none;
+      background: linear-gradient(135deg, #2c2a40, #433f64, #343056);
+      background-size: 300% 300%;
+      color: #f8f5f0;
+      box-shadow: var(--shadow-soft);
+      animation: chef-bg-move 2s ease-in-out infinite alternate;
+    }
+
+
+
+    .chef-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      opacity: 0.8;
+      margin-bottom: 0.35rem;
+    }
+
+    .chef-title {
+      font-family: var(--font-titulo);
+      font-size: 1.05rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .chef-desc {
+      font-size: 0.85rem;
+      opacity: 0.92;
+      margin-bottom: 0.5rem;
+    }
+
+    .chef-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(249, 245, 235, 0.5);
+      background: rgba(249, 245, 235, 0.08);
+    }
+
+    /* ====== SECCIONES DE MENÚ ====== */
+    .menu-wrapper {
+      padding: 2.3rem 0 3rem;
+    }
+
+    .section-header {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .section-title {
+      font-family: var(--font-titulo);
+      font-size: 1.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .section-subtitle {
+      font-size: 0.82rem;
+      opacity: 0.75;
+      max-width: 20rem;
+      text-align: center;
+    }
+
+    .menu-section {
+      padding-top: 1.6rem;
+      padding-bottom: 1.2rem;
+      border-bottom: 1px dashed rgba(0,0,0,0.04);
+      margin-bottom: 1.2rem;
+      scroll-margin-top: 90px;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 1rem;
+    }
+
+    /* Tablet / teléfono en horizontal: 2 columnas cómodas */
+    @media (min-width: 700px) {
+      .menu-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .menu-item {
+      padding: 1rem;
+      display: flex;
+      gap: 0.9rem;
+      align-items: flex-start;
+    }
+
+    .menu-item-img {
+      width: 96px;
+      height: 96px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      flex-shrink: 0;
+      cursor: zoom-in;
+    }
+
+    .menu-item-header {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      flex: 1;
+    }
+
+    .menu-item-name-row {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .menu-item-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .menu-item-badges {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #fff;
+      white-space: nowrap;
+    }
+
+    .badge--recomendado {
+      background: var(--color-badge-recomendado);
+    }
+
+    .badge--nuevo {
+      background: var(--color-badge-nuevo);
+    }
+
+    .badge--picante {
+      background: var(--color-badge-picante);
+    }
+
+    .menu-item-desc {
+      font-size: 0.8rem;
+      opacity: 0.85;
+    }
+
+    /* Ajuste del footer para que precio vaya a la derecha */
+    .menu-item-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.5rem;
+      width: 100%;
+    }
+
+    .menu-item-price {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-left: auto;
+    }
+
+    .menu-item-note {
+      font-size: 0.75rem;
+      opacity: 0.7;
+    }
+
+    /* ====== FOOTER ====== */
+    .site-footer {
+      padding: 1.8rem 0 2.4rem;
+      border-top: 1px solid rgba(0,0,0,0.06);
+      font-size: 0.78rem;
+      text-align: center;
+      background: #faf8f5;
+    }
+
+    .footer-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .footer-legal {
+      opacity: 0.75;
+    }
+
+    .footer-note {
+      opacity: 0.6;
+    }
+
+    /* ====== BOTÓN VOLVER ARRIBA ====== */
+    .back-to-top {
+      position: fixed;
+      right: 1.2rem;
+      bottom: 1.2rem;
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      border: none;
+      background: var(--color-primario);
+      color: #fdfbf6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 14px 30px rgba(23, 16, 56, 0.45);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      z-index: 30;
+    }
+
+    .back-to-top.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .back-to-top:active {
+      transform: translateY(1px) scale(0.97);
+    }
+
+    @media (min-width: 720px) {
+      .menu-item-img {
+        width: 110px;
+        height: 110px;
+      }
+
+      .menu-item {
+        padding: 1.2rem 1.1rem;
+        gap: 1.1rem;
+      }
+    }
+
+    /* ====== RESPONSIVE ====== */
+    @media (min-width: 640px) {
+      .hero-inner {
+        grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+        align-items: start;
+      }
+
+      .hero {
+        padding-top: 2.1rem;
+      }
+
+      .hero-main-title {
+        font-size: 2.4rem;
+      }
+
+      .hero-meta {
+        max-width: none;
+      }
+    }
+
+    /* Escritorio: 3 columnas */
+    @media (min-width: 1100px) {
+      .menu-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .site-header-inner {
+        padding-inline: 0;
+      }
+
+      .hero {
+        padding: 2.2rem 0 2.8rem;
+      }
+
+      .site-footer {
+        text-align: left;
+      }
+
+      .footer-row {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+
+    /* ====== OVERLAY DEL MENÚ ====== */
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.28);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      z-index: 22;
+    }
+
+    .menu-overlay.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    /* Hover suave en las tarjetas (solo desktop) */
+    @media (hover: hover) {
+      .menu-item.card {
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+      }
+
+      .menu-item.card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 16px 40px rgba(12, 8, 32, 0.12);
+      }
+    }
+
+    /* ====== LIGHTBOX DE IMÁGENES ====== */
+    .image-lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      z-index: 40;
+    }
+
+    .image-lightbox.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .image-lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 80vh;
+    }
+
+    .image-lightbox-content img {
+      display: block;
+      max-width: 100%;
+      max-height: 80vh;
+      border-radius: 18px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    }
+
+    .image-lightbox-close {
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      border: none;
+      background: #ffffff;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+
+    @media (min-width: 768px) {
+      .image-lightbox-content {
+        max-width: 480px;
+      }
+    }
+
+    /* En móviles muy pequeños: tarjeta vertical (foto arriba) */
+    @media (max-width: 480px) {
+      .menu-item {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .menu-item-img {
+        width: 100%;
+        height: 190px;
+        border-radius: 14px;
+      }
+
+      .menu-item-footer {
+        text-align: left;
+        margin-top: 0.35rem;
+        padding-top: 0.3rem;
+      }
+
+      .menu-section {
+        padding-top: 1.2rem;
+        padding-bottom: 0.9rem;
+        margin-bottom: 0.9rem;
+      }
+    }
+
+    /* --- BOTÓN HAMBURGUESA SOLO EN MÓVIL --- */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.3rem 0.4rem;
+      color: var(--color-primario);
+    }
+
+    @media (max-width: 640px) {
+      .site-header-inner {
+        align-items: center;
+        gap: 0.5rem;
+        padding-inline: 1rem;
+      }
+
+      .nav {
+        position: static;   /* ya no relativo, así usa el header como referencia */
+        margin-left: auto;
+      }
+
+      .menu-toggle {
+        display: block;
+        margin-left: 0.5rem;
+      }
+
+      .nav-links {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100%;
+        flex-direction: column;
+        padding: 0.8rem 1rem 1rem;
+        background: rgba(245, 243, 239, 0.96);
+        backdrop-filter: blur(14px);
+        box-shadow: 0 14px 30px rgba(0,0,0,0.16);
+        border-radius: 0 0 18px 18px;
+        z-index: 25;
+
+        opacity: 0;
+        transform: translateY(-8px);
+        pointer-events: none;
+        transition: opacity 0.25s ease, transform 0.25s ease;
+      }
+
+      .nav-links a {
+        padding: 0.6rem 0.2rem;
+        font-size: 0.9rem;
+      }
+
+      .nav-links.is-open {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+    }
+
+    @keyframes chef-bg-move {
+      0% { background-position: 0% 30%; }
+      50% { background-position: 80% 70%; }
+      100% { background-position: 0% 30%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .chef-card {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container site-header-inner">
+      <div class="brand">
+        <div class="brand-logo" aria-hidden="true">LC</div>
+        <div class="brand-text">
+          <div class="brand-name">La Casa Elegante</div>
+          <div class="brand-tagline">Cocina de autor</div>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Secciones del menú">
+        <button class="menu-toggle" aria-label="Abrir menú">☰</button>
+        <div class="nav-links">
+          <a href="#entradas">Entradas</a>
+          <a href="#platos-fuertes">Platos fuertes</a>
+          <a href="#vegetariano">Vegetariano</a>
+          <a href="#bebidas">Bebidas</a>
+          <a href="#cocteles">Cocteles</a>
+          <a href="#postres">Postres</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="menu-overlay"></div>
+
+  <!-- HERO -->
+  <main>
+    <section class="hero" id="inicio">
+      <div class="container hero-inner">
+        <div>
+          <p class="hero-subtitle eyebrow">Menú degustación · Ciudad</p>
+          <h1 class="hero-main-title">La Casa Elegante</h1>
+          <p class="hero-description">
+            Cocina de autor con inspiración mediterránea. Productos de temporada,
+            técnicas clásicas y un ambiente íntimo pensado para momentos especiales.
+          </p>
+
+          <div class="hero-meta">
+            <div class="meta-card card">
+              <p class="meta-label eyebrow">Horarios</p>
+              <p class="meta-value">
+                Mar – Dom · 13:30 – 23:00<br>
+                Cerrado los lunes
+              </p>
+            </div>
+            <div class="meta-card card">
+              <p class="meta-label eyebrow">Ubicación</p>
+              <p class="meta-value">
+                Calle Primavera 145<br>
+                Col. Centro, Ciudad
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <aside class="chef-card card" aria-label="Recomendación del chef">
+          <p class="chef-label eyebrow">Recomendación del chef</p>
+          <h2 class="chef-title">Degustación de la casa</h2>
+          <p class="chef-desc">
+            Un recorrido por seis tiempos que cambia según la temporada:
+            del huerto a la mesa en una sola experiencia.
+          </p>
+          <div class="chef-tag">
+            <span>Disponible solo con reserva</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- MENÚ -->
+    <div class="container menu-wrapper">
+
+      <!-- ENTRADAS -->
+      <section class="menu-section" id="entradas">
+        <div class="section-header">
+          <h2 class="section-title">Entradas</h2>
+          <p class="section-subtitle">Para compartir al centro de la mesa.</p>
+        </div>
+
+        <div class="menu-grid">
+          <article class="menu-item card">
+            <img class="menu-item-img" src="../../assets/img/placeholders/Carpaccio-de-Res.jpg" alt="Carpaccio de res clásico">
+            <div class="menu-item-header">
+              <div class="menu-item-name-row">
+                <h3 class="menu-item-name">Carpaccio de res clásico</h3>
+                <div class="menu-item-badges">
+                  <span class="badge badge--recomendado">Recomendado</span>
+                </div>
+              </div>
+              <p class="menu-item-desc">
+                Láminas finas de res, emulsión de limón, alcaparras, parmesano y aceite de oliva extra virgen.
+              </p>
+            </div>
+            <div class="menu-item-footer">
+              <p class="menu-item-note">Gluten · Lácteos</p>
+              <p class="menu-item-price">$260</p>
+            </div>
+          </article>
+
+          <article class="menu-item card">
+            <img class="menu-item-img" src="../../assets/img/placeholders/Ostras al natural.jpg" alt="Ostras al natural">
+            <div class="menu-item-header">
+              <div class="menu-item-name-row">
+                <h3 class="menu-item-name">Ostras al natural</h3>
+                <div class="menu-item-badges">
+                  <span class="badge badge--nuevo">Nuevo</span>
+                </div>
+              </div>
+              <p class="menu-item-desc">
+                Media docena de ostras frescas, vinagreta de chalota y limón amarillo.
+              </p>
+            </div>
+            <div class="menu-item-footer">
+              <p class="menu-item-note">Mariscos</p>
+              <p class="menu-item-price">$320</p>
+            </div>
+          </article>
+
+          <article class="menu-item card">
+            <img class="menu-item-img" src="../../assets/img/placeholders/Tarta fina de cebolla caramelizada.jpg" alt="Tarta fina de cebolla caramelizada">
+            <div class="menu-item-header">
+              <div class="menu-item-name-row">
+                <h3 class="menu-item-name">Tarta fina de cebolla caramelizada</h3>
+              </div>
+              <p class="menu-item-desc">
+                Base crujiente, cebolla lenta, queso de cabra y tomillo fresco.
+              </p>
+            </div>
+            <div class="menu-item-footer">
+              <p class="menu-item-note">Vegetariano · Lácteos</p>
+              <p class="menu-item-price">$210</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- PLATOS FUERTES -->
+      <section class="menu-section" id="platos-fuertes">
+        <div class="section-header">
+          <h2 class="section-title">Platos fuertes</h2>
+          <p class="section-subtitle">Cortes, pescados y pastas de la casa.</p>
+        </div>
+
+        <div class="menu-grid">
+          <article class="menu-item card">
+            <img class="menu-item-img" src="../../assets/img/placeholders/Filete en salsa de vino tinto.jpg" alt="Filete en salsa de vino tinto">
+            <div class="menu-item-header">
+              <div class="menu-item-name-row">
+                <h3 class="menu-item-name">Filete en salsa de vino tinto</h3>
+                <div class="menu-item-badges">
+                  <span class="badge badge--recomendado">Recomendado</span>
+                </div>
+              </div>
+              <p class="menu-item-desc">
+                250 g de filete a término, reducción de vino tinto, puré de papa trufado y vegetales de temporada.
+              </p>
+            </div>
+            <div class="menu-item-footer">
+              <p class="menu-item-note">Gluten · Lácteos · Sulfitos</p>
+              <p class="menu-item-price">$520</p>
+            </div>
+          </article>
+
+          <article class="menu-item card">
+            <img class="menu-item-img" src="../../assets/img/placeholders/Robalo a la mantequilla café.jpg" alt="Robalo a la mantequilla café">
+            <div class="menu-item-header">
+              <div class="menu-item-name-row">
+                <h3 class="menu-item-name">Robalo a la mantequilla café</h3>
+              </div>
+              <p class="menu-item-desc">
+                Filete de robalo sellado, mantequilla avellanada, limón y alcaparras.
+                Acompañado de espárragos y puré de coliflor.
+              </p>
+            </div>
+            <div class="menu-item-footer">
+              <p class="menu-item-note">Pescado · Lácteos</p>
+              <p class="menu-item-price">$480</p>
+            </div>
+          </article>
+
+          <article class="menu-item card">
+            <img class="menu-item-img" src="../../assets/img/placeholders/Pappardelle al ragú de cordero.jpg" alt="Pappardelle al ragú de cordero">
+            <div class="menu-item-header">
+              <div class="menu-item-name-row">
+                <h3 class="menu-item-name">Pappardelle al ragú de cordero</h3>
+              </div>
+              <p class="menu-item-desc">
+                Pasta fresca hecha en casa, ragú de cordero de cocción lenta,
+                tomate rostizado y pecorino romano.
+              </p>
+            </div>
+            <div class="menu-item-footer">
+              <p class="menu-item-note">Gluten · Lácteos</p>
+              <p class="menu-item-price">$390</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- OPCIONES VEGETARIANAS -->
+      <section class="menu-section" id="vegetariano">
+        <div class="section-header">
+          <h2 class="section-title">Vegetariano</h2>
+          <p class="section-subtitle">Platos pensados para resaltar el producto vegetal.</p>
+        </div>
+
+        <div class="menu-grid">
+          <article class="menu-item card">
+            <img class="menu-item-img" src="../../assets/img/placeholders/Risotto de setas y trufa.jpg" alt="Risotto de setas y trufa">
+            <div class="menu-item-header">
+              <div class="menu-item-name-row">
+                <h3 class="menu-item-name">Risotto de setas y trufa</h3>
+                <div class="menu-item-badges">
+                  <span class="badge badge--recomendado">Recomendado</span>
+                </div>
+              </div>
+              <p class="menu-item-desc">
+                Arroz carnaroli, setas de la casa, aceite de trufa y parmesano.
+              </p>
+            </div>
+            <div class="menu-item-footer">
+              <p class="menu-item-note">Vegetariano · Lácteos</p>
+              <p class="menu-item-price">$360</p>
+            </div>
+          </article>
+
+          <article class="menu-item card">
+            <img class="menu-item-img" src="../../assets/img/placeholders/Coliflor rostizada al horno de leña.jpg" alt="Coliflor rostizada al horno de leña">
+            <div class="menu-item-header">
+              <div class="menu-item-name-row">
+                <h3 class="menu-item-name">Coliflor rostizada al horno de leña</h3>
+              </div>
+              <p class="menu-item-desc">
+                Coliflor entera con mantequilla avellanada, limón, hierbas frescas y crumble de almendra.
+              </p>
+            </div>
+            <div class="menu-item-footer">
+              <p class="menu-item-note">Puede hacerse vegano</p>
+              <p class="menu-item-price">$330</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- BEBIDAS SIN ALCOHOL -->
+      <section class="menu-section" id="bebidas">
+        <div class="section-header">
+          <h2 class="section-title">Bebidas</h2>
+          <p class="section-subtitle">Sin alcohol, pensadas para acompañar el menú.</p>
+        </div>
+
+        <div class="menu-grid">
+          <article class="menu-item card">
+            <img class="menu-item-img" src="../../assets/img/placeholders/Agua infusionada de cítricos.JPG" alt="Agua infusionada de cítricos">
+            <div class="menu-item-header">
+              <div class="menu-item-name-row">
+                <h3 class="menu-item-name">Agua infusionada de cítricos</h3>
+              </div>
+              <p class="menu-item-desc">
+                Naranja, limón amarillo y hierbabuena. Refil durante el servicio.
+              </p>
+            </div>
+            <div class="menu-item-footer">
+              <p class="menu-item-price">$60</p>
+            </div>
+          </article>
+
+          <article class="menu-item card">
+            <img class="menu-item-img" src="../../assets/img/placeholders/Limonada de lavanda.jpg" alt="Limonada de lavanda">
+            <div class="menu-item-header">
+              <div class="menu-item-name-row">
+                <h3 class="menu-item-name">Limonada de lavanda</h3>
+              </div>
+              <p class="menu-item-desc">
+                Limonada ligera con jarabe de lavanda y hielo cristal.
+              </p>
+            </div>
+            <div class="menu-item-footer">
+              <p class="menu-item-price">$85</p>
+            </div>
+          </article>
+
+          <article class="menu-item card">
+            <img class="menu-item-img" src="../../assets/img/placeholders/Té frío de durazno.jpg" alt="Té frío de durazno">
+            <div class="menu-item-header">
+              <div class="menu-item-name-row">
+                <h3 class="menu-item-name">Té frío de durazno</h3>
+              </div>
+              <p class="menu-item-desc">
+                Té negro frío con puré de durazno natural.
+              </p>
+            </div>
+            <div class="menu-item-footer">
+              <p class="menu-item-price">$80</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- COCTELES -->
+      <section class="menu-section" id="cocteles">
+        <div class="section-header">
+          <h2 class="section-title">Cocteles</h2>
+          <p class="section-subtitle">Clásicos y de autor.</p>
+        </div>
+
+        <div class="menu-grid">
+          <article class="menu-item card">
+            <img class="menu-item-img" src="../../assets/img/placeholders/French 75.jpg" alt="French 75">
+            <div class="menu-item-header">
+              <div class="menu-item-name-row">
+                <h3 class="menu-item-name">French 75</h3>
+              </div>
+              <p class="menu-item-desc">
+                Ginebra, jugo de limón, azúcar y vino espumoso.
+              </p>
+            </div>
+            <div class="menu-item-footer">
+              <p class="menu-item-note">Contiene alcohol</p>
+              <p class="menu-item-price">$210</p>
+            </div>
+          </article>
+
+          <article class="menu-item card">
+            <img class="menu-item-img" src="../../assets/img/placeholders/Negroni ahumado.jpg" alt="Negroni ahumado">
+            <div class="menu-item-header">
+              <div class="menu-item-name-row">
+                <h3 class="menu-item-name">Negroni ahumado</h3>
+                <div class="menu-item-badges">
+                  <span class="badge badge--nuevo">Nuevo</span>
+                </div>
+              </div>
+              <p class="menu-item-desc">
+                Ginebra, vermut rojo y bitter, ahumado al momento en mesa.
+              </p>
+            </div>
+            <div class="menu-item-footer">
+              <p class="menu-item-note">Contiene alcohol</p>
+              <p class="menu-item-price">$230</p>
+            </div>
+          </article>
+
+          <article class="menu-item card">
+            <img class="menu-item-img" src="../../assets/img/placeholders/Picante de la casa.jpg" alt="Picante de la casa">
+            <div class="menu-item-header">
+              <div class="menu-item-name-row">
+                <h3 class="menu-item-name">Picante de la casa</h3>
+                <div class="menu-item-badges">
+                  <span class="badge badge--picante">Picante</span>
+                </div>
+              </div>
+              <p class="menu-item-desc">
+                Tequila blanco, limón, piña y jarabe de chile de árbol.
+              </p>
+            </div>
+            <div class="menu-item-footer">
+              <p class="menu-item-note">Contiene alcohol</p>
+              <p class="menu-item-price">$220</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- POSTRES -->
+      <section class="menu-section" id="postres">
+        <div class="section-header">
+          <h2 class="section-title">Postres</h2>
+          <p class="section-subtitle">Cierre dulce para la experiencia.</p>
+        </div>
+
+        <div class="menu-grid">
+          <article class="menu-item card">
+            <img class="menu-item-img" src="../../assets/img/placeholders/Soufflé de chocolate amargo.jpg" alt="Soufflé de chocolate amargo">
+            <div class="menu-item-header">
+              <div class="menu-item-name-row">
+                <h3 class="menu-item-name">Soufflé de chocolate amargo</h3>
+                <div class="menu-item-badges">
+                  <span class="badge badge--recomendado">Recomendado</span>
+                </div>
+              </div>
+              <p class="menu-item-desc">
+                Preparado al momento. Chocolate 70%, helado de vainilla de Madagascar.
+              </p>
+            </div>
+            <div class="menu-item-footer">
+              <p class="menu-item-note">Tiempo de espera · Lácteos</p>
+              <p class="menu-item-price">$210</p>
+            </div>
+          </article>
+
+          <article class="menu-item card">
+            <img class="menu-item-img" src="../../assets/img/placeholders/Tarta de limón y merengue.jpg" alt="Tarta de limón y merengue">
+            <div class="menu-item-header">
+              <div class="menu-item-name-row">
+                <h3 class="menu-item-name">Tarta de limón y merengue</h3>
+              </div>
+              <p class="menu-item-desc">
+                Base crujiente, crema de limón y merengue tostado.
+              </p>
+            </div>
+            <div class="menu-item-footer">
+              <p class="menu-item-note">Gluten · Lácteos</p>
+              <p class="menu-item-price">$180</p>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <!-- LIGHTBOX DE IMAGEN -->
+    <div class="image-lightbox" id="imageLightbox" aria-modal="true" role="dialog" aria-hidden="true">
+      <div class="image-lightbox-content">
+        <button class="image-lightbox-close" type="button" aria-label="Cerrar imagen">×</button>
+        <img src="" alt="" id="lightboxImage">
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <p class="footer-legal">© La Casa Elegante · 2025</p>
+      <p class="footer-note">Si tienes alguna alergia, por favor informa a tu mesero antes de ordenar.</p>
+    </div>
+  </footer>
+
+  <!-- BOTÓN VOLVER ARRIBA -->
+  <button class="back-to-top" aria-label="Volver arriba">
+    ↑
+  </button>
+
+  <script>
+    // Botón "volver arriba" ligero y rápido
+    (function() {
+      const btn = document.querySelector('.back-to-top');
+      if (!btn) return;
+
+      const toggleVisibility = () => {
+        if (window.scrollY > 420) {
+          btn.classList.add('is-visible');
+        } else {
+          btn.classList.remove('is-visible');
+        }
+      };
+
+      window.addEventListener('scroll', toggleVisibility, { passive: true });
+
+      btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    })();
+
+    // Lightbox de imágenes de platillos
+    (function () {
+      const images = document.querySelectorAll('.menu-item-img');
+      const lightbox = document.getElementById('imageLightbox');
+      const lightboxImg = document.getElementById('lightboxImage');
+      const closeBtn = document.querySelector('.image-lightbox-close');
+
+      if (!images.length || !lightbox || !lightboxImg || !closeBtn) return;
+
+      const openLightbox = (img) => {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt || '';
+        lightbox.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      };
+
+      const closeLightbox = () => {
+        lightbox.classList.remove('is-open');
+        document.body.style.overflow = '';
+      };
+
+      images.forEach((img) => {
+        img.addEventListener('click', () => openLightbox(img));
+      });
+
+      closeBtn.addEventListener('click', closeLightbox);
+
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) closeLightbox();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeLightbox();
+      });
+    })();
+  </script>
+
+  <script>
+    const btn = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+    const overlay = document.querySelector(".menu-overlay");
+    const navItems = document.querySelectorAll(".nav-links a");
+
+    if (btn && navLinks && overlay) {
+      btn.addEventListener("click", () => {
+        navLinks.classList.toggle("is-open");
+        overlay.classList.toggle("is-visible");
+      });
+
+      overlay.addEventListener("click", () => {
+        navLinks.classList.remove("is-open");
+        overlay.classList.remove("is-visible");
+      });
+
+      // 🔹 NUEVO: cerrar menú al hacer click en cualquier link
+      navItems.forEach(link => {
+        link.addEventListener("click", () => {
+          navLinks.classList.remove("is-open");
+          overlay.classList.remove("is-visible");
+        });
+      });
+    }
+  </script>
+
+  <script>
+    const sections = document.querySelectorAll(".menu-section[id]");
+    const navLinksAll = document.querySelectorAll(".nav-links a");
+
+    window.addEventListener("scroll", () => {
+      let current = null;
+
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 140 && rect.bottom >= 140) {
+          current = section.id;
+        }
+      });
+
+      if (!current) return;
+
+      navLinksAll.forEach(link => {
+        link.classList.toggle(
+          "is-active",
+          link.getAttribute("href") === "#" + current
+        );
+      });
+    });
+  </script>
+</body>
+</html>
