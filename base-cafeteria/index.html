@@ -7,13 +7,14 @@
 
   <style>
     :root {
-      --bg: #0f1012;
-      --bg-soft: #18191d;
+      /* Tonos tipo pizarrón */
+      --bg: #111418;
+      --bg-soft: #181d23;
       --fg: #f4f4f4;
       --muted: #9a9ca3;
       --accent: #c89b63;
       --accent-soft: rgba(200,155,99,0.18);
-      --border-soft: #25262b;
+      --border-soft: #262b33;
     }
 
     * {
@@ -25,13 +26,15 @@
     html, body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
         "Inter", sans-serif;
-      background: radial-gradient(circle at top, #21232a 0, #0b0c0f 55%, #050506 100%);
+      background: #111418;          /* fondo sólido oscuro para TODA la pantalla */
       color: var(--fg);
       -webkit-font-smoothing: antialiased;
       scroll-behavior: smooth;
+      height: 100%;
     }
 
     body {
+      min-height: 100vh;            /* evita que se vea blanco al girar el cel */
       padding: 16px;
     }
 
@@ -39,20 +42,21 @@
       max-width: 960px;
       margin: 0 auto;
       border-radius: 20px;
-      background: radial-gradient(circle at top left, #262833 0, #121318 55%, #0c0d11 100%);
-      border: 1px solid rgba(255,255,255,0.04);
+      background:
+        radial-gradient(circle at top left, #242a33 0, #151920 55%, #12161c 100%);
+      border: 1px solid rgba(255,255,255,0.03);
       overflow: hidden;
       position: relative;
+      box-shadow: 0 22px 60px rgba(0,0,0,0.6);
     }
 
     .shell::before {
       content: "";
       position: absolute;
       inset: -40%;
-      opacity: 0.15;
+      opacity: 0.18;
       background:
-        linear-gradient(120deg, #25252b 1px, transparent 1px) 0 0 / 26px 26px,
-        radial-gradient(circle at top right, rgba(200,155,99,0.3), transparent 55%);
+        linear-gradient(120deg, rgba(255,255,255,0.02) 1px, transparent 1px) 0 0 / 26px 26px;
       pointer-events: none;
     }
 
@@ -64,7 +68,7 @@
 
     @media (min-width: 720px) {
       body {
-        padding: 32px;
+        padding: 28px;
       }
       .inner {
         padding: 24px 26px 26px;
@@ -79,22 +83,6 @@
       gap: 12px 18px;
       align-items: center;
       margin-bottom: 18px;
-    }
-
-    .mark {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background:
-        radial-gradient(circle at 30% 10%, #f7f0e9 0, #d7b089 32%, #895934 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #111;
-      font-weight: 600;
-      letter-spacing: 1px;
-      font-size: 0.9rem;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.45);
     }
 
     .title-block h1 {
@@ -122,7 +110,7 @@
       align-items: center;
       gap: 8px;
       backdrop-filter: blur(10px);
-      background: rgba(15,16,20,0.7);
+      background: rgba(10,12,15,0.9);
     }
 
     .pill-dot {
@@ -154,7 +142,7 @@
       padding: 4px 10px;
       font-size: 0.72rem;
       border: 1px solid var(--border-soft);
-      background: rgba(24,25,30,0.9);
+      background: rgba(17,20,24,0.95);
     }
 
     /* category chips */
@@ -173,7 +161,7 @@
       border-radius: 999px;
       padding: 7px 14px;
       border: 1px solid var(--border-soft);
-      background: rgba(18,19,24,0.9);
+      background: rgba(17,20,25,0.95);
       font-size: 0.78rem;
       color: var(--muted);
       cursor: pointer;
@@ -229,8 +217,8 @@
     .list {
       font-size: 0.88rem;
       border-radius: 14px;
-      background: rgba(15,16,20,0.9);
-      border: 1px solid rgba(255,255,255,0.02);
+      background: rgba(15,19,24,0.98);
+      border: 1px solid rgba(255,255,255,0.03);
       padding: 10px 12px;
     }
 
@@ -258,7 +246,7 @@
     }
 
     .price {
-      color: #d1d1d1;
+      color: #e2e2e2;
       font-size: 0.86rem;
     }
 
@@ -267,7 +255,7 @@
       overflow: hidden;
       position: relative;
       min-height: 180px;
-      background: #1a1b20;
+      background: #1a1f26;
       border: 1px solid rgba(255,255,255,0.03);
     }
 
@@ -276,13 +264,13 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      filter: saturate(1.1);
+      filter: saturate(1.05);
     }
 
     .photo-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.65), transparent 65%);
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent 65%);
     }
 
     .photo-caption {
@@ -341,7 +329,6 @@
     <div class="inner">
 
       <header>
-        <div class="mark">AG</div>
         <div class="title-block">
           <h1>ALBA &amp; GRANO</h1>
           <p>Menú de café · Escaneado desde código QR</p>
@@ -426,7 +413,6 @@
         </div>
 
         <div class="photo-block">
-          <!-- Cambia estos src por tus fotos -->
           <img src="https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Hot coffee">
           <div class="photo-overlay"></div>
           <div class="photo-caption">Hot menu<span>espresso &amp; milk based</span></div>
